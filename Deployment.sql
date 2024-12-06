@@ -60,7 +60,6 @@
         id                      INT AUTO_INCREMENT PRIMARY KEY,
         draft_create_dt         DATETIME NOT NULL,
         draft_cancel_dt         DATETIME,
-        draft_last_update_dt    DATETIME,
         creation_dt             DATETIME,
         pick_start_dt           DATETIME,
         completion_dt           DATETIME,
@@ -86,6 +85,7 @@
         field3          TEXT,
         field4          TEXT,
         field5          TEXT,
+        is_excluded     TINYINT NOT NULL DEFAULT 0,
         picklistfile_id INT NOT NULL,
         picklist_id     INT NOT NULL,
         stock_id        INT
@@ -112,7 +112,8 @@
         stocksize_tr.size_name,
         stock_tm.stock_color_id,
         stockcolor_tr.color_name,
-        stock_tm.quantity AS quantity
+        stock_tm.quantity AS quantity,
+        stock_tm.is_active AS is_active
     FROM
         stock_tm
         INNER JOIN stocktype_tr ON stock_tm.stock_type_id = stocktype_tr.id
